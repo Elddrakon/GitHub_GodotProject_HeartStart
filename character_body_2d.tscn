@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://cps8h1sarmqki"]
+
+[ext_resource type="Texture2D" uid="uid://dnvcu86uji7xy" path="res://icon.svg" id="1_f50pn"]
+
+[sub_resource type="GDScript" id="GDScript_ij6vw"]
+script/source = "extends CharacterBody2D
+"
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+script = SubResource("GDScript_ij6vw")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(517, 321)
+texture = ExtResource("1_f50pn")
