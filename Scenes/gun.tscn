@@ -57,7 +57,10 @@ script = ExtResource("1_oqrbh")
 [node name="Pistol" type="Sprite2D" parent="."]
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 visible = false
+=======
+>>>>>>> 45f136722dcda190d2a0caa3e5997497ab742623
 =======
 >>>>>>> 45f136722dcda190d2a0caa3e5997497ab742623
 =======
@@ -78,11 +81,14 @@ frame_progress = 0.351055
 [node name="Bare_Hand" type="Sprite2D" parent="."]
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 position = Vector2(0, 1)
 rotation = -1.5708
 texture = ExtResource("1_nxj5y")
 region_enabled = true
 region_rect = Rect2(256, 192, 124, 128)
+=======
+>>>>>>> 45f136722dcda190d2a0caa3e5997497ab742623
 =======
 >>>>>>> 45f136722dcda190d2a0caa3e5997497ab742623
 =======
