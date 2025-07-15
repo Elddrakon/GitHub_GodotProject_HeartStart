@@ -17,16 +17,24 @@ var animation_direction: String = "Idle.F"
 enum Direction {RIGHT, LEFT, UP, DOWN, RIGHT_UP, RIGHT_DOWN, LEFT_UP, LEFT_DOWN}
 var last_direction : Direction
 
-#movement
+func _ready() -> void:
+	animated_sprite.play("Idle.F")
+	
+	
 func get_input():
 	animated_sprite.play(animation_direction)
 	var input_direction = Input.get_vector("Left","Right","Up","Down")
 	velocity = speed * input_direction
 #running animation
 	if velocity != Vector2.ZERO:
+		#var rounded_input = Vector2(
+			#int(round(input_direction.x)),
+			#int(round(input_direction.y))
+		#)
+		var direction = (get_global_mouse_position() - global_position).normalized()
 		var rounded_input = Vector2(
-			int(round(input_direction.x)),
-			int(round(input_direction.y))
+			round(direction.x),
+			round(direction.y)
 		)
 		match rounded_input:
 			Vector2.RIGHT:
@@ -135,9 +143,10 @@ func dodge_logic(delta: float) -> void:
 		player.add_child(gun)
 		
 func _physics_process(delta):
+	move_and_slide()
 	if dodge_timer > 0.0:
 		dodge_logic(delta)
 	else:
 		get_input()
-	move_and_slide()
+
 	

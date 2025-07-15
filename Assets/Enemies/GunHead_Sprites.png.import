@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b4xamwbs40dku"
-path="res://.godot/imported/Weapon_Fire_Animation_copy.png-eb32faee96c47833ab28c379b512727e.ctex"
+uid="uid://epy6cy2g87ec"
+path="res://.godot/imported/GunHead_Sprites.png-9a29b7d451439ad24a9ec18d74300740.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Guns/Weapon_Fire_Animation_copy.png"
-dest_files=["res://.godot/imported/Weapon_Fire_Animation_copy.png-eb32faee96c47833ab28c379b512727e.ctex"]
+source_file="res://Assets/Enemies/GunHead_Sprites.png"
+dest_files=["res://.godot/imported/GunHead_Sprites.png-9a29b7d451439ad24a9ec18d74300740.ctex"]
 
 [params]
 

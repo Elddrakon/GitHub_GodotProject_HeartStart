@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b4xamwbs40dku"
-path="res://.godot/imported/Weapon_Fire_Animation_copy.png-eb32faee96c47833ab28c379b512727e.ctex"
+uid="uid://dkee32c1cyvmf"
+path="res://.godot/imported/DEMO.png-8af0fd3326a1533859ac069338c39648.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Guns/Weapon_Fire_Animation_copy.png"
-dest_files=["res://.godot/imported/Weapon_Fire_Animation_copy.png-eb32faee96c47833ab28c379b512727e.ctex"]
+source_file="res://Assets/Tilemap/PALands_DEMO/DEMO.png"
+dest_files=["res://.godot/imported/DEMO.png-8af0fd3326a1533859ac069338c39648.ctex"]
 
 [params]
 

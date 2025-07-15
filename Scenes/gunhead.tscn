@@ -1,0 +1,128 @@
+[gd_scene load_steps=14 format=3 uid="uid://bjc5ks5ggbxxy"]
+
+[ext_resource type="Texture2D" uid="uid://epy6cy2g87ec" path="res://Assets/Enemies/GunHead_Sprites.png" id="2_mne4x"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5dh1s"]
+atlas = ExtResource("2_mne4x")
+region = Rect2(0, 384, 512, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0h6yn"]
+atlas = ExtResource("2_mne4x")
+region = Rect2(0, 384, 512, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iuaip"]
+atlas = ExtResource("2_mne4x")
+region = Rect2(1024, 384, 512, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8m2qh"]
+atlas = ExtResource("2_mne4x")
+region = Rect2(512, 384, 512, 384)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_iyugf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5dh1s")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0h6yn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iuaip")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8m2qh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0h6yn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iuaip")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8m2qh")
+}],
+"loop": true,
+"name": &"Walking",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n4nrj"]
+size = Vector2(1523, 127)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uosh0"]
+atlas = ExtResource("2_mne4x")
+region = Rect2(0, 0, 512, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mgl8r"]
+atlas = ExtResource("2_mne4x")
+region = Rect2(1024, 0, 512, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xtb4p"]
+atlas = ExtResource("2_mne4x")
+region = Rect2(0, 0, 512, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gy7jo"]
+atlas = ExtResource("2_mne4x")
+region = Rect2(512, 0, 512, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3w7ej"]
+atlas = ExtResource("2_mne4x")
+region = Rect2(1024, 0, 512, 384)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_w7sao"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uosh0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mgl8r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uosh0")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xtb4p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gy7jo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3w7ej")
+}],
+"loop": true,
+"name": &"Shooting",
+"speed": 5.0
+}]
+
+[node name="Gunhead" type="Node2D"]
+
+[node name="Body" type="AnimatedSprite2D" parent="."]
+position = Vector2(-2, 0)
+sprite_frames = SubResource("SpriteFrames_iyugf")
+animation = &"Idle"
+
+[node name="Shooting_Range" type="Area2D" parent="."]
+collision_layer = 10
+collision_mask = 257
+
+[node name="Range" type="CollisionShape2D" parent="Shooting_Range"]
+position = Vector2(886.5, -50.5)
+shape = SubResource("RectangleShape2D_n4nrj")
+
+[node name="Head" type="AnimatedSprite2D" parent="Shooting_Range"]
+sprite_frames = SubResource("SpriteFrames_w7sao")
+animation = &"Idle"
+autoplay = "Idle"
+frame_progress = 0.956514

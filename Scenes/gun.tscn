@@ -69,22 +69,29 @@ animation = &"Idle"
 frame_progress = 0.351055
 
 [node name="Bare_Hand" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(0, 1)
+position = Vector2(-18, -18)
 rotation = -1.5708
 texture = ExtResource("1_nxj5y")
 region_enabled = true
 region_rect = Rect2(256, 192, 124, 128)
 
 [node name="Smg" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(94, -6)
-rotation = 0.47822
+position = Vector2(89, -29)
+rotation = 0.23911
 texture = ExtResource("1_nxj5y")
 region_enabled = true
 region_rect = Rect2(764, 128, 256, 192)
 
 [node name="Shotgun" type="Sprite2D" parent="."]
+position = Vector2(83, -9)
+rotation = 0.120428
+texture = ExtResource("1_nxj5y")
 region_enabled = true
+region_rect = Rect2(1020, 192, 256, 128)
 
 [node name="Sniper" type="Sprite2D" parent="."]
+position = Vector2(82, -5)
+rotation = 0.120428
+texture = ExtResource("1_nxj5y")
+region_enabled = true
+region_rect = Rect2(1276, 192, 260, 128)

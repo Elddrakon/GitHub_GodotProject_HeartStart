@@ -23,31 +23,36 @@ var weapon_in_hand = Weapon
 	 	"ammo" = 8,
 	 	"shooting_speed" = 5.0,
 	 	"weapon_fire_speed" = 0.5,
-	 	"reload_speed" = 1.0},
+	 	"reload_speed" = 1.0,
+		"push" = 2.0},
 	"smg": 
 		{"damage" = 3,
 		 "ammo" = 40,
 		 "shooting_speed" = 20.0,
 		 "weapon_fire_speed" = 0.125,
-		 "reload_speed" = 0.7},
+		 "reload_speed" = 0.7,
+		 "push" = 2.0},
 	"shotgun": 
 		{"damage" = 30,
 		 "ammo" = 5, 
 		"shooting_speed" = 2.5,
 		 "weapon_fire_speed" = 1.0,
-		 "reload_speed" = 2.0},
+		 "reload_speed" = 2.0,
+		 "push" = 2.0},
 	"sniper": 
 		{"damage" = 50,
 		 "ammo" = 3,
 		 "shooting_speed" = 1.0,
 		 "weapon_fire_speed" = 2.5,
-		 "reload_speed" = 3.0},
+		 "reload_speed" = 3.0,
+		 "push" = 2.0},
 	"bare_hand":
 		{"damage" = 0,
 		 "ammo" = 0,
 		 "shooting_speed" = 0.0,
 		 "weapon_fire_speed" = 0.0,
-		 "reload_speed" = 0.0}
+		 "reload_speed" = 0.0,
+		 "push" = 0.0}
 }
 
 # 
@@ -75,7 +80,15 @@ func _process(delta: float) -> void:
 	match key:
 		"pistol":
 			if not pistol.get_parent():gun.add_child(pistol)
-		
+		"smg":
+			if not smg.get_parent():gun.add_child(smg)
+		"shotgun":
+			if not shotgun.get_parent():gun.add_child(shotgun)
+		"sniper":
+			if not sniper.get_parent():gun.add_child(sniper)
+		"bare_hand":
+			if not bare_hand.get_parent():gun.add_child(bare_hand)
+			
 	look_at(get_global_mouse_position())
 	if position.x > 0:
 		rotation_degrees = clamp(rotation_degrees,-90,90)
@@ -90,12 +103,33 @@ func shoot_animation(delta):
 	if Input.is_action_pressed("Shoot") and not is_shooting:
 		is_shooting = true
 		animation_timer = weapons[key]["weapon_fire_speed"]
-		pistol_fire.play("shoot")
+		match key:
+			"pistol":
+				pistol_fire.play("shoot")
+			"smg":
+				pass
+			"shotgun":
+				pass
+			"sniper":
+				pass
+			"bare_hand":
+				pass
 	
 	if is_shooting:
 		animation_timer -= delta
 		if animation_timer <= 0:
 			is_shooting = false
-			pistol_fire.stop()
-			pistol_fire.play("Idle")  # Or stop+reset fram
+			match key:
+				"pistol":
+					pistol_fire.stop()
+					pistol_fire.play("Idle") 
+				"smg":
+					pass
+				"shotgun":
+					pass
+				"sniper":
+					pass
+				"bare_hand":
+					pass
+
 	

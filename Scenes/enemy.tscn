@@ -1,0 +1,50 @@
+[gd_scene load_steps=9 format=3 uid="uid://cowepqrkf4sgi"]
+
+[ext_resource type="PackedScene" uid="uid://bjc5ks5ggbxxy" path="res://Scenes/gunhead.tscn" id="1_1f0kj"]
+[ext_resource type="PackedScene" uid="uid://oojonqysjm2k" path="res://Scenes/hit_box_e.tscn" id="2_287tu"]
+[ext_resource type="PackedScene" uid="uid://15jn8jc5qh76" path="res://Scenes/basic_enemy.tscn" id="2_afpow"]
+[ext_resource type="PackedScene" uid="uid://jnsusi3ln5j4" path="res://Scenes/detection_area.tscn" id="3_0830c"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ghaa6"]
+radius = 97.0
+height = 394.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1dp5w"]
+radius = 1660.59
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_auwsv"]
+radius = 82.0
+height = 360.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8uf12"]
+radius = 1211.91
+
+[node name="Enemies" type="Node2D"]
+
+[node name="Gunhead" parent="." instance=ExtResource("1_1f0kj")]
+visible = false
+
+[node name="Hitbox_E" parent="Gunhead" instance=ExtResource("2_287tu")]
+
+[node name="Hitbox_GH" type="CollisionShape2D" parent="Gunhead/Hitbox_E"]
+position = Vector2(18, 14)
+shape = SubResource("CapsuleShape2D_ghaa6")
+
+[node name="Detection_Area" parent="Gunhead" instance=ExtResource("3_0830c")]
+
+[node name="Detection_GH" type="CollisionShape2D" parent="Gunhead/Detection_Area"]
+shape = SubResource("CircleShape2D_1dp5w")
+
+[node name="Basic_enemy" parent="." instance=ExtResource("2_afpow")]
+visible = false
+
+[node name="Hitbox_E" parent="Basic_enemy" instance=ExtResource("2_287tu")]
+
+[node name="Hitbox_BE" type="CollisionShape2D" parent="Basic_enemy/Hitbox_E"]
+position = Vector2(0, 23)
+shape = SubResource("CapsuleShape2D_auwsv")
+
+[node name="Detection_Area" parent="Basic_enemy" instance=ExtResource("3_0830c")]
+
+[node name="Detection_BE" type="CollisionShape2D" parent="Basic_enemy/Detection_Area"]
+shape = SubResource("CircleShape2D_8uf12")
