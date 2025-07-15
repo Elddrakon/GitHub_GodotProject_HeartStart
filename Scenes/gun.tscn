@@ -55,16 +55,6 @@ animations = [{
 script = ExtResource("1_oqrbh")
 
 [node name="Pistol" type="Sprite2D" parent="."]
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-visible = false
-=======
->>>>>>> 45f136722dcda190d2a0caa3e5997497ab742623
-=======
->>>>>>> 45f136722dcda190d2a0caa3e5997497ab742623
-=======
->>>>>>> 45f136722dcda190d2a0caa3e5997497ab742623
 position = Vector2(55, -42)
 rotation = 0.120428
 texture = ExtResource("1_nxj5y")
@@ -79,23 +69,22 @@ animation = &"Idle"
 frame_progress = 0.351055
 
 [node name="Bare_Hand" type="Sprite2D" parent="."]
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
+visible = false
 position = Vector2(0, 1)
 rotation = -1.5708
 texture = ExtResource("1_nxj5y")
 region_enabled = true
 region_rect = Rect2(256, 192, 124, 128)
-=======
->>>>>>> 45f136722dcda190d2a0caa3e5997497ab742623
-=======
->>>>>>> 45f136722dcda190d2a0caa3e5997497ab742623
-=======
->>>>>>> 45f136722dcda190d2a0caa3e5997497ab742623
 
 [node name="Smg" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(94, -6)
+rotation = 0.47822
+texture = ExtResource("1_nxj5y")
+region_enabled = true
+region_rect = Rect2(764, 128, 256, 192)
 
 [node name="Shotgun" type="Sprite2D" parent="."]
+region_enabled = true
 
 [node name="Sniper" type="Sprite2D" parent="."]
