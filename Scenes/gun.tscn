@@ -1,0 +1,95 @@
+[gd_scene load_steps=9 format=3 uid="uid://mynjib66wfqy"]
+
+[ext_resource type="Texture2D" uid="uid://do8vfubuqqad5" path="res://Assets/guns/Experiment_Guns.png" id="1_nxj5y"]
+[ext_resource type="Script" uid="uid://byadivy830b8k" path="res://Scripts/gun.gd" id="1_oqrbh"]
+[ext_resource type="Texture2D" uid="uid://b4xamwbs40dku" path="res://Assets/guns/Weapon_Fire_Animation_copy.png" id="3_t6ynv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k4teu"]
+atlas = ExtResource("3_t6ynv")
+region = Rect2(5, 0, 57, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ft2q4"]
+atlas = ExtResource("3_t6ynv")
+region = Rect2(62, 0, 57, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_alhkf"]
+atlas = ExtResource("3_t6ynv")
+region = Rect2(119, 0, 57, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bsipy"]
+atlas = ExtResource("3_t6ynv")
+region = Rect2(176, 0, 57, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ftlo2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": null
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k4teu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ft2q4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_alhkf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bsipy")
+}],
+"loop": true,
+"name": &"shoot",
+"speed": 10.0
+}]
+
+[node name="Gun" type="Node2D"]
+script = ExtResource("1_oqrbh")
+
+[node name="Pistol" type="Sprite2D" parent="."]
+<<<<<<< HEAD
+<<<<<<< HEAD
+visible = false
+=======
+>>>>>>> 45f136722dcda190d2a0caa3e5997497ab742623
+=======
+>>>>>>> 45f136722dcda190d2a0caa3e5997497ab742623
+position = Vector2(55, -42)
+rotation = 0.120428
+texture = ExtResource("1_nxj5y")
+region_enabled = true
+region_rect = Rect2(512, 128, 192, 192)
+
+[node name="Pistol_fire" type="AnimatedSprite2D" parent="Pistol"]
+position = Vector2(211.274, -10.4575)
+scale = Vector2(4.74977, 4.26704)
+sprite_frames = SubResource("SpriteFrames_ftlo2")
+animation = &"Idle"
+frame_progress = 0.351055
+
+[node name="Bare_Hand" type="Sprite2D" parent="."]
+<<<<<<< HEAD
+<<<<<<< HEAD
+position = Vector2(0, 1)
+rotation = -1.5708
+texture = ExtResource("1_nxj5y")
+region_enabled = true
+region_rect = Rect2(256, 192, 124, 128)
+=======
+>>>>>>> 45f136722dcda190d2a0caa3e5997497ab742623
+=======
+>>>>>>> 45f136722dcda190d2a0caa3e5997497ab742623
+
+[node name="Smg" type="Sprite2D" parent="."]
+
+[node name="Shotgun" type="Sprite2D" parent="."]
+
+[node name="Sniper" type="Sprite2D" parent="."]
