@@ -1,55 +1,60 @@
 extends Node2D
 
 #all the nodes functions
-
-@onready var gun: Node2D = $"."
+const bullet = preload("res://Scenes/bullets.tscn")
+@onready var gun: StaticBody2D = $"."
 @onready var pistol: Sprite2D = $Pistol
 @onready var bare_hand: Sprite2D = $Bare_Hand
 @onready var smg: Sprite2D = $Smg
 @onready var shotgun: Sprite2D = $Shotgun
 @onready var sniper: Sprite2D = $Sniper
-
 @onready var pistol_fire: AnimatedSprite2D = $Pistol/Pistol_fire
+@onready var smg_fire: AnimatedSprite2D = $Smg/Smg_fire
+@onready var shotgun_fire: AnimatedSprite2D = $Shotgun/Shotgun_fire
+@onready var sniper_fire: AnimatedSprite2D = $Sniper/Sniper_fire
+
 
 #weapon state
 enum Weapon {PISTOL,SMG,SHOTGUN,SNIPER,BARE_HAND}
-var weapon_in_hand = Weapon 
+var weapon_in_hand : Weapon = Weapon.PISTOL
+
+var reload_timer := 0.0
+
 
 #dictionary for the guns and the attributes 
 
 @export var weapons = {
 	"pistol": 
-		{"damage" = 10,
+		{
 	 	"ammo" = 8,
-	 	"shooting_speed" = 5.0,
-	 	"weapon_fire_speed" = 0.5,
+	 	"weapon_fire_speed" = 0.75,
 	 	"reload_speed" = 1.0,
-		"push" = 2.0},
+		"push" = 2000,
+		"knockback_dur" = 0.1},
 	"smg": 
-		{"damage" = 3,
+		{
 		 "ammo" = 40,
-		 "shooting_speed" = 20.0,
-		 "weapon_fire_speed" = 0.125,
+		 "weapon_fire_speed" = 0.1,
 		 "reload_speed" = 0.7,
-		 "push" = 2.0},
+		 "push" = 1000,
+		"knockback_dur" = 0.1},
 	"shotgun": 
-		{"damage" = 30,
+		{
 		 "ammo" = 5, 
-		"shooting_speed" = 2.5,
-		 "weapon_fire_speed" = 1.0,
+		 "weapon_fire_speed" = 1.5,
 		 "reload_speed" = 2.0,
-		 "push" = 2.0},
+		 "push" = 5000,
+		"knockback_dur" = 0.2},
 	"sniper": 
-		{"damage" = 50,
+		{
 		 "ammo" = 3,
-		 "shooting_speed" = 1.0,
-		 "weapon_fire_speed" = 2.5,
-		 "reload_speed" = 3.0,
-		 "push" = 2.0},
+		 "weapon_fire_speed" = 2.0,
+		 "reload_speed" = 0.2,
+		 "push" = 8000,
+		"knockback_dur" = 0.2},
 	"bare_hand":
-		{"damage" = 0,
+		{
 		 "ammo" = 0,
-		 "shooting_speed" = 0.0,
 		 "weapon_fire_speed" = 0.0,
 		 "reload_speed" = 0.0,
 		 "push" = 0.0}
@@ -58,6 +63,7 @@ var weapon_in_hand = Weapon
 # 
 var animation_timer = 0.0
 var is_shooting = false
+
 
 #key from the dictionary
 func get_weapon_key():
@@ -68,24 +74,33 @@ func get_weapon_key():
 		Weapon.SNIPER: return "sniper"
 		Weapon.BARE_HAND: return "bare_hand"
 		
-var key = get_weapon_key()
+
 		
 func _ready() -> void:
 	for n in gun.get_children():
 		gun.remove_child(n)
-		
-	key = "pistol"
 	
-func _process(delta: float) -> void:
-	match key:
+
+	
+func _physics_process(delta: float) -> void:
+
+	match get_weapon_key():
 		"pistol":
 			if not pistol.get_parent():gun.add_child(pistol)
+			if not pistol_fire.get_parent():gun.add_child(pistol_fire)
+			pistol_fire.play("Idle")
 		"smg":
 			if not smg.get_parent():gun.add_child(smg)
+			if not smg_fire.get_parent():gun.add_child(smg_fire)
+			smg_fire.play("Idle")
 		"shotgun":
 			if not shotgun.get_parent():gun.add_child(shotgun)
+			if not shotgun_fire.get_parent():gun.add_child(shotgun_fire)
+			shotgun_fire.play("Idle")
 		"sniper":
 			if not sniper.get_parent():gun.add_child(sniper)
+			if not sniper_fire.get_parent():gun.add_child(sniper_fire)
+			sniper_fire.play("Idle")
 		"bare_hand":
 			if not bare_hand.get_parent():gun.add_child(bare_hand)
 			
@@ -96,40 +111,71 @@ func _process(delta: float) -> void:
 	else:
 		rotation_degrees = clamp(rotation_degrees,90,270)
 		scale.y = -1
-	shoot_animation(delta)
-		
-		
-func shoot_animation(delta):
-	if Input.is_action_pressed("Shoot") and not is_shooting:
-		is_shooting = true
-		animation_timer = weapons[key]["weapon_fire_speed"]
-		match key:
-			"pistol":
-				pistol_fire.play("shoot")
-			"smg":
-				pass
-			"shotgun":
-				pass
-			"sniper":
-				pass
-			"bare_hand":
-				pass
+	shoot(delta)
 	
+	
+	
+func shoot(delta):
+	if Input.is_action_pressed("Shoot") and not is_shooting:
+		if get_weapon_key() != "bare_hand":
+			is_shooting = true
+			animation_timer = weapons[get_weapon_key()]["weapon_fire_speed"]
+			var bullet_instance = bullet.instantiate()
+			
+			apply_knockback()
+			match get_weapon_key():
+				"pistol":
+					pistol_fire.play("Shooting")
+					bullet_instance.type = Bullet.BulletType.PISTOL
+					bullet_instance.global_position = $Pistol/aim.global_position
+					bullet_instance.global_rotation  = $Pistol/aim.global_rotation
+					get_tree().root.add_child(bullet_instance)	
+				"smg":
+					smg_fire.play("Shooting")
+					bullet_instance.type = Bullet.BulletType.SMG
+					bullet_instance.global_position = $Smg/aim.global_position
+					bullet_instance.global_rotation  = $Smg/aim.global_rotation
+					get_tree().root.add_child(bullet_instance)	
+				"shotgun":
+					for i in range(3):
+						shotgun_fire.play("Shooting")
+						var pellet = bullet.instantiate()
+						pellet.type = Bullet.BulletType.SHOTGUN
+						var spread_angle = deg_to_rad(randf_range(-5, 0))
+						var transform = $Shotgun/aim.global_transform
+						transform = transform.rotated(spread_angle)
+						pellet.global_transform = transform
+						get_tree().current_scene.add_child(pellet)
+
+				"sniper":
+					sniper_fire.play("Shooting")
+					bullet_instance.type = Bullet.BulletType.SNIPER
+					bullet_instance.global_position = $Sniper/aim.global_position
+					bullet_instance.global_rotation  = $Sniper/aim.global_rotation
+					get_tree().root.add_child(bullet_instance)	
+			
+		else:
+			match get_weapon_key():
+				"pistol":
+					pistol_fire.play("Idle")
+				"smg":
+					smg_fire.play("Idle")
+				"shotgun":
+					shotgun_fire.play("Idle")
+				"sniper":
+					sniper_fire.play("Idle")
+
 	if is_shooting:
 		animation_timer -= delta
 		if animation_timer <= 0:
 			is_shooting = false
-			match key:
-				"pistol":
-					pistol_fire.stop()
-					pistol_fire.play("Idle") 
-				"smg":
-					pass
-				"shotgun":
-					pass
-				"sniper":
-					pass
-				"bare_hand":
-					pass
+	
 
+func apply_knockback():
+	if is_shooting:
+		var dir = (global_position - get_global_mouse_position()).normalized()
+		var force = weapons[get_weapon_key()]["push"]
+		var duration = weapons[get_weapon_key()].get("knockback_dur", 0.2)
+		get_parent().apply_knockback(dir, force, duration)
+	
 	
