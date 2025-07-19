@@ -1,0 +1,75 @@
+[gd_scene load_steps=3 format=3 uid="uid://buvlpwq81e6qc"]
+
+[ext_resource type="Script" uid="uid://cw8npkb0nhskn" path="res://Scenes/heart_selection_menu.gd" id="1_0luu1"]
+[ext_resource type="Texture2D" uid="uid://bedlu6xp0pefu" path="res://icon.svg" id="2_idik5"]
+
+[node name="SelectionMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0luu1")
+hearts = null
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Arrow_button_left" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 199.0
+offset_right = 194.0
+offset_bottom = 366.0
+texture_pressed = ExtResource("2_idik5")
+
+[node name="Arrow_button_right" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 965.0
+offset_top = 214.0
+offset_right = 1134.0
+offset_bottom = 381.0
+texture_pressed = ExtResource("2_idik5")
+
+[node name="TeleportPositions" type="Node" parent="."]
+
+[node name="Teleport_position_left" type="Node2D" parent="TeleportPositions"]
+position = Vector2(116, 401)
+
+[node name="Teleport_position_right" type="Node2D" parent="TeleportPositions"]
+position = Vector2(955, 385)
+
+[node name="Teleport_position_middle" type="Node2D" parent="TeleportPositions"]
+position = Vector2(551, 280)
+
+[node name="Teleport_position_outside_left" type="Node2D" parent="TeleportPositions"]
+position = Vector2(-364, 403)
+
+[node name="Teleport_position_outside_right" type="Node2D" parent="TeleportPositions"]
+position = Vector2(1440, 402)
+
+[node name="Hearts" type="Node" parent="."]
+
+[node name="Prosthetic_Heart" type="TextureRect" parent="Hearts"]
+offset_left = 97.0
+offset_top = 382.0
+offset_right = 137.0
+offset_bottom = 422.0
+
+[node name="Normal_Heart" type="TextureRect" parent="Hearts"]
+offset_left = 531.0
+offset_top = 258.0
+offset_right = 571.0
+offset_bottom = 298.0
+
+[node name="Lobotomy_Heart" type="TextureRect" parent="Hearts"]
+offset_left = 934.0
+offset_top = 367.0
+offset_right = 974.0
+offset_bottom = 407.0
