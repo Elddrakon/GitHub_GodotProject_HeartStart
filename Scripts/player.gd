@@ -2,10 +2,14 @@ extends CharacterBody2D
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var gun: Node2D = $Gun
 @onready var player: CharacterBody2D = $"."
+@onready var hitbox: Area2D = $Hitbox
+@onready var camera_2d: Camera2D = $Camera2D
+@onready var collison: CollisionShape2D = $collison
 
 
 @export var health := 6
-@export var speed = 400.0
+@export var blood :=  0
+@export var speed = 600.0
 @export var invicibilty := false
 
 
@@ -16,6 +20,11 @@ var dodge_direction: Vector2 = Vector2.ZERO
 var animation_direction: String = "Idle.F"
 enum Direction {RIGHT, LEFT, UP, DOWN, RIGHT_UP, RIGHT_DOWN, LEFT_UP, LEFT_DOWN}
 var last_direction : Direction
+
+var knockback: Vector2 = Vector2.ZERO
+var knockback_timer := 0.0
+var knockback_duration := 0.0
+
 
 func _ready() -> void:
 	animated_sprite.play("Idle.F")
@@ -112,12 +121,13 @@ func get_input():
 			
 #dodge
 func dodge(direction): 
-	speed = 750.0
+	speed = 4000.0
 	dodge_direction = direction
 	dodge_timer = dodge_duration
 	invicibilty = true
 	player.remove_child(gun)
-	
+	player.remove_child(hitbox)
+	player.remove_child(collison)
 	animated_sprite.speed_scale = 1.0/dodge_duration
 	if direction.x > 0:
 		animated_sprite.flip_h = false
@@ -135,18 +145,38 @@ func dodge_logic(delta: float) -> void:
 	dodge_timer -= delta
 
 	if dodge_timer <= 0:
-		speed = 400
+		speed = 600
 		animated_sprite.speed_scale = 1.0
 		dodge_direction = Vector2.ZERO
 		invicibilty = false
 		animated_sprite.flip_h = false
 		player.add_child(gun)
-		
-func _physics_process(delta):
-	move_and_slide()
-	if dodge_timer > 0.0:
-		dodge_logic(delta)
-	else:
-		get_input()
+		player.add_child(hitbox)
+		player.add_child(collison)
 
+func character():
+	pass
 	
+func apply_knockback(dir: Vector2, force: float, duration: float):
+	knockback = dir.normalized() * force
+	knockback_timer = duration
+	knockback_duration = duration
+	
+	
+func _physics_process(delta):
+	var mouse_pos = get_global_mouse_position()
+	camera_2d.offset = Vector2(
+	(mouse_pos.x - global_position.x) / (1920.0 / 250),
+	(mouse_pos.y - global_position.y) / (1080.0 / 250)
+	)
+	if knockback_timer > 0.0:
+		velocity = knockback
+		knockback_timer -= delta
+		var t = 1.0 - (knockback_timer / knockback_duration)
+		knockback = knockback.lerp(Vector2.ZERO, t)
+	elif dodge_timer > 0.0:
+		dodge_logic(delta)  # Sets velocity inside itself
+	else:
+		get_input()  # Sets velocity based on input
+
+	move_and_slide()

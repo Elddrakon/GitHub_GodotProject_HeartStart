@@ -1,24 +1,64 @@
-[gd_scene load_steps=9 format=3 uid="uid://mynjib66wfqy"]
+[gd_scene load_steps=13 format=3 uid="uid://mynjib66wfqy"]
 
-[ext_resource type="Texture2D" uid="uid://do8vfubuqqad5" path="res://Assets/guns/Experiment_Guns.png" id="1_nxj5y"]
+[ext_resource type="Texture2D" uid="uid://do8vfubuqqad5" path="res://Assets/Guns/Experiment_Guns.png" id="1_nxj5y"]
 [ext_resource type="Script" uid="uid://byadivy830b8k" path="res://Scripts/gun.gd" id="1_oqrbh"]
-[ext_resource type="Texture2D" uid="uid://b4xamwbs40dku" path="res://Assets/guns/Weapon_Fire_Animation_copy.png" id="3_t6ynv"]
+[ext_resource type="Texture2D" uid="uid://bmm8xmqdicqgb" path="res://Assets/Guns/Gun_fires/Experiment_Guns.png" id="3_t6ynv"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_k4teu"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_t6ynv"]
 atlas = ExtResource("3_t6ynv")
-region = Rect2(5, 0, 57, 64)
+region = Rect2(400, 0, 300, 384)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_k4teu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": null
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t6ynv")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": true,
+"name": &"Shooting",
+"speed": 2.0
+}]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ft2q4"]
 atlas = ExtResource("3_t6ynv")
-region = Rect2(62, 0, 57, 64)
+region = Rect2(700, 0, 300, 384)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_alhkf"]
-atlas = ExtResource("3_t6ynv")
-region = Rect2(119, 0, 57, 64)
+[sub_resource type="SpriteFrames" id="SpriteFrames_alhkf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": null
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ft2q4")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": true,
+"name": &"Shooting",
+"speed": 5.0
+}]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bsipy"]
 atlas = ExtResource("3_t6ynv")
-region = Rect2(176, 0, 57, 64)
+region = Rect2(1000, 0, 300, 384)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ftlo2"]
 animations = [{
@@ -32,48 +72,72 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_bsipy")
+}, {
+"duration": 1.0,
 "texture": null
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_k4teu")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ft2q4")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_alhkf")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_bsipy")
+"texture": null
 }],
 "loop": true,
-"name": &"shoot",
-"speed": 10.0
+"name": &"Shooting",
+"speed": 1.0
 }]
 
-[node name="Gun" type="Node2D"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_xlq0n"]
+atlas = ExtResource("3_t6ynv")
+region = Rect2(1300, 0, 300, 384)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ae81u"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": null
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xlq0n")
+}, {
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": true,
+"name": &"Shooting",
+"speed": 1.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_oqrbh"]
+radius = 121.0
+height = 242.0
+
+[node name="Gun" type="StaticBody2D"]
 script = ExtResource("1_oqrbh")
 
 [node name="Pistol" type="Sprite2D" parent="."]
+z_index = 1
 position = Vector2(55, -42)
 rotation = 0.120428
 texture = ExtResource("1_nxj5y")
 region_enabled = true
 region_rect = Rect2(512, 128, 192, 192)
 
-[node name="Pistol_fire" type="AnimatedSprite2D" parent="Pistol"]
-position = Vector2(211.274, -10.4575)
-scale = Vector2(4.74977, 4.26704)
-sprite_frames = SubResource("SpriteFrames_ftlo2")
-animation = &"Idle"
-frame_progress = 0.351055
+[node name="aim" type="Marker2D" parent="Pistol"]
+position = Vector2(60.3496, -17.3761)
+rotation = 0.120428
 
-[node name="Bare_Hand" type="Sprite2D" parent="."]
-position = Vector2(-18, -18)
-rotation = -1.5708
-texture = ExtResource("1_nxj5y")
-region_enabled = true
-region_rect = Rect2(256, 192, 124, 128)
+[node name="Pistol_fire" type="AnimatedSprite2D" parent="Pistol"]
+position = Vector2(129.362, -29.7567)
+sprite_frames = SubResource("SpriteFrames_k4teu")
+animation = &"Shooting"
+frame_progress = 0.919828
 
 [node name="Smg" type="Sprite2D" parent="."]
 position = Vector2(89, -29)
@@ -82,6 +146,16 @@ texture = ExtResource("1_nxj5y")
 region_enabled = true
 region_rect = Rect2(764, 128, 256, 192)
 
+[node name="aim" type="Marker2D" parent="Smg"]
+position = Vector2(33.8158, -17.5069)
+rotation = 0.0174533
+
+[node name="Smg_fire" type="AnimatedSprite2D" parent="Smg"]
+position = Vector2(120.235, -30.3395)
+sprite_frames = SubResource("SpriteFrames_alhkf")
+animation = &"Shooting"
+frame_progress = 0.856816
+
 [node name="Shotgun" type="Sprite2D" parent="."]
 position = Vector2(83, -9)
 rotation = 0.120428
@@ -89,9 +163,42 @@ texture = ExtResource("1_nxj5y")
 region_enabled = true
 region_rect = Rect2(1020, 192, 256, 128)
 
+[node name="aim" type="Marker2D" parent="Shotgun"]
+position = Vector2(38.4521, -31.8502)
+rotation = 0.0698132
+
+[node name="Shotgun_fire" type="AnimatedSprite2D" parent="Shotgun"]
+position = Vector2(190.015, -61.2717)
+sprite_frames = SubResource("SpriteFrames_ftlo2")
+animation = &"Idle"
+
 [node name="Sniper" type="Sprite2D" parent="."]
 position = Vector2(82, -5)
 rotation = 0.120428
 texture = ExtResource("1_nxj5y")
 region_enabled = true
 region_rect = Rect2(1276, 192, 260, 128)
+
+[node name="aim" type="Marker2D" parent="Sniper"]
+position = Vector2(89.2914, -27.9295)
+rotation = 0.0174533
+
+[node name="Sniper_fire" type="AnimatedSprite2D" parent="Sniper"]
+position = Vector2(208.878, -63.5543)
+sprite_frames = SubResource("SpriteFrames_ae81u")
+animation = &"Shooting"
+frame = 2
+frame_progress = 0.604929
+
+[node name="Bare_Hand" type="Sprite2D" parent="."]
+position = Vector2(-18, -18)
+rotation = -1.5708
+texture = ExtResource("1_nxj5y")
+region_enabled = true
+region_rect = Rect2(256, 192, 124, 128)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(64, -34)
+scale = Vector2(1, 0.769634)
+shape = SubResource("CapsuleShape2D_oqrbh")

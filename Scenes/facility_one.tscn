@@ -1,12 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://os6x3e71qxi7"]
+[gd_scene load_steps=4 format=3 uid="uid://os6x3e71qxi7"]
 
 [ext_resource type="PackedScene" uid="uid://bxute6x8w0nld" path="res://Scenes/player.tscn" id="1_c0var"]
 [ext_resource type="Script" uid="uid://1mmnlpxdyni7" path="res://Scripts/facility_one.gd" id="1_e5m4u"]
+[ext_resource type="PackedScene" uid="uid://cowepqrkf4sgi" path="res://Scenes/enemy.tscn" id="3_e5m4u"]
 
 [node name="World" type="Node2D"]
+visibility_layer = 32
 script = ExtResource("1_e5m4u")
 
-[node name="Player" parent="." instance=ExtResource("1_c0var")]
+[node name="Enemies" parent="." instance=ExtResource("3_e5m4u")]
+position = Vector2(-912, -184)
 
-[node name="Camera2D" type="Camera2D" parent="Player"]
-zoom = Vector2(0.5, 0.5)
+[node name="Player" parent="." instance=ExtResource("1_c0var")]
+position = Vector2(-1664, -115)

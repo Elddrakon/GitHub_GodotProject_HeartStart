@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://c1q7edmx36b8a"]
+
+[ext_resource type="Script" uid="uid://dm0anrvanx56r" path="res://Scripts/damage_particale.gd" id="1_thowq"]
+
+[node name="Damage_particale" type="CPUParticles2D"]
+amount = 50
+lifetime = 0.3
+explosiveness = 1.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 100.0
+scale_amount_min = 5.0
+scale_amount_max = 5.0
+color = Color(0.639216, 0.211765, 0.211765, 1)
+script = ExtResource("1_thowq")
