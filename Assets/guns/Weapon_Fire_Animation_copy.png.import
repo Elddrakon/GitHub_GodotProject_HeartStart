@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b4xamwbs40dku"
-path="res://.godot/imported/Weapon_Fire_Animation_copy.png-8c5705dc7874552da939ef5979bb3f0c.ctex"
+path="res://.godot/imported/Weapon_Fire_Animation_copy.png-eb32faee96c47833ab28c379b512727e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/guns/Weapon_Fire_Animation_copy.png"
-dest_files=["res://.godot/imported/Weapon_Fire_Animation_copy.png-8c5705dc7874552da939ef5979bb3f0c.ctex"]
+source_file="res://Assets/Guns/Weapon_Fire_Animation_copy.png"
+dest_files=["res://.godot/imported/Weapon_Fire_Animation_copy.png-eb32faee96c47833ab28c379b512727e.ctex"]
 
 [params]
 

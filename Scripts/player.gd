@@ -6,12 +6,14 @@ extends CharacterBody2D
 @onready var camera_2d: Camera2D = $Camera2D
 @onready var collison: CollisionShape2D = $collison
 
-
+var damage := 0
 @export var health := 6
 @export var blood :=  0
-@export var speed = 600.0
+@export var speed = 1000.0
 @export var invicibilty := false
-
+var invicibility_timer = 0:
+	set(value):
+		invicibility_timer = clamp(value,0.0,1.0)
 
 const dodge_duration := 0.3
 var dodge_timer := 0.0
@@ -33,13 +35,8 @@ func _ready() -> void:
 func get_input():
 	animated_sprite.play(animation_direction)
 	var input_direction = Input.get_vector("Left","Right","Up","Down")
-	velocity = speed * input_direction
-#running animation
+	velocity = input_direction * speed
 	if velocity != Vector2.ZERO:
-		#var rounded_input = Vector2(
-			#int(round(input_direction.x)),
-			#int(round(input_direction.y))
-		#)
 		var direction = (get_global_mouse_position() - global_position).normalized()
 		var rounded_input = Vector2(
 			round(direction.x),
@@ -161,7 +158,24 @@ func apply_knockback(dir: Vector2, force: float, duration: float):
 	knockback = dir.normalized() * force
 	knockback_timer = duration
 	knockback_duration = duration
-	
+
+func take_damage(amount):
+	var invicibility_duration = 0.3
+	invicibility_timer = invicibility_duration
+	health -= amount
+	if invicibility_timer > 0:
+		invicibilty = true
+		player.remove_child(hitbox)
+		animated_sprite.modulate = Color(1000,1000,1000)
+		
+
+func _on_hitbox_body_entered(body: Node2D) -> void:
+	if body.has_method("bullet_damage") and body.key == "enemy":
+		pass
+	if body.has_method("giving_damage"):
+		pass
+
+		
 	
 func _physics_process(delta):
 	var mouse_pos = get_global_mouse_position()
@@ -175,8 +189,8 @@ func _physics_process(delta):
 		var t = 1.0 - (knockback_timer / knockback_duration)
 		knockback = knockback.lerp(Vector2.ZERO, t)
 	elif dodge_timer > 0.0:
-		dodge_logic(delta)  # Sets velocity inside itself
+		dodge_logic(delta) 
 	else:
-		get_input()  # Sets velocity based on input
+		get_input()  
 
 	move_and_slide()

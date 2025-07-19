@@ -395,3 +395,5 @@ zoom = Vector2(0.65, 0.65)
 [node name="collison" type="CollisionShape2D" parent="."]
 position = Vector2(1, 16)
 shape = SubResource("CapsuleShape2D_6t5aa")
+
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]

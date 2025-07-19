@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://cowepqrkf4sgi"]
+[gd_scene load_steps=39 format=3 uid="uid://cowepqrkf4sgi"]
 
 [ext_resource type="Script" uid="uid://b20p14v5ng3r8" path="res://Scripts/enemy.gd" id="1_0830c"]
 [ext_resource type="Texture2D" uid="uid://epy6cy2g87ec" path="res://Assets/Enemies/GunHead_Sprites.png" id="2_287tu"]
@@ -204,11 +204,15 @@ size = Vector2(1810, 100)
 radius = 113.0
 height = 392.0
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_0830c"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_haro7"]
+atlas = ExtResource("5_0830c")
+region = Rect2(512, 0, 512, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_scl1n"]
 atlas = ExtResource("5_0830c")
 region = Rect2(0, 0, 512, 384)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_haro7"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_4jyny"]
 atlas = ExtResource("5_0830c")
 region = Rect2(512, 0, 512, 384)
 
@@ -227,15 +231,59 @@ region = Rect2(1536, 0, 512, 384)
 [sub_resource type="SpriteFrames" id="SpriteFrames_1dp5w"]
 animations = [{
 "frames": [{
+"duration": 0.01,
+"texture": SubResource("AtlasTexture_haro7")
+}, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_0830c")
+"texture": SubResource("AtlasTexture_haro7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_haro7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_haro7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_haro7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_haro7")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_haro7")
 }],
 "loop": true,
 "name": &"Attack",
-"speed": 5.0
+"speed": 0.01
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_scl1n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_scl1n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_scl1n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_scl1n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4jyny")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4jyny")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4jyny")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4jyny")
+}],
+"loop": true,
+"name": &"Charge",
+"speed": 0.01
 }, {
 "frames": [{
 "duration": 1.0,
@@ -266,7 +314,8 @@ DEATH_PARTICALE = ExtResource("2_0830c")
 Damage_particales = ExtResource("3_ghaa6")
 
 [node name="Basic_enemy" type="CharacterBody2D" parent="."]
-visible = false
+collision_layer = 0
+collision_mask = 0
 
 [node name="Enemy_sprite" type="AnimatedSprite2D" parent="Basic_enemy"]
 sprite_frames = SubResource("SpriteFrames_0whn2")
@@ -290,7 +339,6 @@ scale = Vector2(8.81021, 5.32072)
 shape = SubResource("CapsuleShape2D_287tu")
 
 [node name="Gunhead" type="CharacterBody2D" parent="."]
-visible = false
 
 [node name="Body" type="AnimatedSprite2D" parent="Gunhead"]
 sprite_frames = SubResource("SpriteFrames_haro7")
@@ -336,13 +384,10 @@ shape = SubResource("CapsuleShape2D_vh8xy")
 [node name="Dasher_sprite" type="AnimatedSprite2D" parent="Dasher"]
 sprite_frames = SubResource("SpriteFrames_1dp5w")
 animation = &"Attack"
-autoplay = "Idle"
-frame_progress = 0.174578
 
 [node name="Detection_area" type="Area2D" parent="Dasher"]
 
 [node name="Range" type="CollisionShape2D" parent="Dasher/Detection_area"]
-visible = false
 shape = SubResource("CircleShape2D_5xdhn")
 
 [node name="Hitbox" type="Area2D" parent="Dasher"]

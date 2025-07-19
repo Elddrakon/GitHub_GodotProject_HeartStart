@@ -16,7 +16,7 @@ const bullet = preload("res://Scenes/bullets.tscn")
 
 #weapon state
 enum Weapon {PISTOL,SMG,SHOTGUN,SNIPER,BARE_HAND}
-var weapon_in_hand : Weapon = Weapon.PISTOL
+var weapon_in_hand : Weapon = Weapon.SMG
 
 var reload_timer := 0.0
 
@@ -142,6 +142,7 @@ func shoot(delta):
 						var pellet = bullet.instantiate()
 						pellet.type = Bullet.BulletType.SHOTGUN
 						var spread_angle = deg_to_rad(randf_range(-5, 0))
+						@warning_ignore("shadowed_variable_base_class")
 						var transform = $Shotgun/aim.global_transform
 						transform = transform.rotated(spread_angle)
 						pellet.global_transform = transform

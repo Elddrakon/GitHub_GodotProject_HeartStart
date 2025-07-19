@@ -62,8 +62,8 @@ enum State { IDLE, CHASE }
 		"health": 80,
 		"speed": 350,
 		"attack_power": 2,
-		"attack_speed": 3000,
-		"attack_duration": 8.0,
+		"attack_speed": 4000,
+		"attack_duration": 2.0,
 		"hitbox_damage": 2
 	},
 	"toxic": {
@@ -76,7 +76,7 @@ enum State { IDLE, CHASE }
 }
 
 # Enemy state
-var type: EnemyType = EnemyType.DASH
+var type: EnemyType = EnemyType.GUN
 var enemy_state: State = State.IDLE
 var dead := false
 var player_in_area := false
@@ -84,7 +84,7 @@ var should_attack := false
 var player: Node2D = null
 var timer := 0.0
 var damage: int = 0
-const dash_duration := 1
+const dash_duration := 0.9
 var dash_timer := 0.0
 var chase_cooldown := 0
 
@@ -123,7 +123,7 @@ func initialize_enemy():
 	should_attack = false
 	timer = classes[key]["attack_duration"]
 	enemy_state = State.IDLE
-
+	add_to_group("enemies")
 	# Clear existing children and add the appropriate one
 	for child in enemies.get_children():
 		enemies.remove_child(child)
@@ -161,21 +161,29 @@ func update_detection_area():
 
 
 func dashing(_delta):
-	speed = classes[key]["attack_speed"]
+	speed = 0
 	dash_timer = dash_duration
-	chase_cooldown = 1
-	dasher.get_node('Dasher_sprite').play("Attack")
-	dasher.get_node('Dasher_sprite').speed_scale = 1.0 * dash_timer
+	chase_cooldown = 5
+	dasher.get_node('Dasher_sprite').speed_scale = 0.01
+	dasher.get_node('Dasher_sprite').play("Charge")
+	dasher.get_node('Dasher_sprite').play("Charge")
+	dasher.get_node('Dasher_sprite').play("Charge")
+	await get_tree().create_timer(0.1).timeout
+	speed = classes[key]["attack_speed"]
 	var direction = (player.position - position).normalized()
 	position += direction * classes[key]["attack_speed"] * _delta
-	
+	dasher.get_node('Dasher_sprite').play("Attack")
+	dasher.get_node('Dasher_sprite').play("Attack")
+	dasher.get_node('Dasher_sprite').play("Attack")
+	dasher.get_node('Dasher_sprite').play("Attack")
 
-	
 func dash_logic(_delta):
 	dash_timer -= _delta
 	if dash_timer <= 0:
 		speed = classes[key]["speed"]
 		dasher.get_node('Dasher_sprite').speed_scale = 1.0 
+
+		
 func _physics_process(delta: float) -> void:
 	if dead:
 		return
@@ -203,7 +211,7 @@ func handle_state(delta: float):
 
 func chase_player(delta: float):
 	if chase_cooldown > 0.0:
-		chase_cooldown -= delta  # Count down
+		chase_cooldown -= delta  
 		return 
 	
 	var direction = (player.position - position).normalized()
@@ -265,9 +273,27 @@ func attack(_delta: float):
 
 func take_damage(amount: int):
 	health -= amount
+	match key:
+		"basic_enemies":
+			$Basic_enemy/Enemy_sprite.modulate = Color(1000, 1000, 1000)
+			await get_tree().create_timer(0.1).timeout
+			$Basic_enemy/Enemy_sprite.modulate = Color(1,1,1)
+		"gun_head":
+			$Gunhead/Body.modulate = Color(1000, 1000, 1000)
+			$Gunhead/Head.modulate = Color(1000, 1000, 1000)
+			await get_tree().create_timer(0.1).timeout
+			$Gunhead/Body.modulate = Color(1,1,1)
+			$Gunhead/Head.modulate = Color(1,1,1)
+		"dasher":
+			$Dasher.modulate = Color(1000, 1000, 1000)
+			await get_tree().create_timer(0.1).timeout
+			$Dasher.modulate = Color(1, 1, 1)
 	if health <= 0 and not dead:
 		pass
 		death()
+
+func giving_damage():
+	pass
 
 func death():
 	if dead:
@@ -275,7 +301,6 @@ func death():
 
 	dead = true
 
-	# Disconnect signals
 	for area in detection_areas:
 		if is_instance_valid(area):
 			area.body_entered.disconnect(_on_detection_area_body_entered)
@@ -285,21 +310,19 @@ func death():
 		if is_instance_valid(h_box):
 			h_box.body_entered.disconnect(_on_hitbox_body_entered)
 
-	# Spawn death particle
 	var particale = DEATH_PARTICALE.instantiate()
 	particale.position = global_position
 	particale.rotation = global_rotation
 	particale.emitting = true
 	get_tree().current_scene.add_child(particale)
 
-	# Free children
 	for child in get_children():
 		if is_instance_valid(child):
 			child.queue_free()
 
 	queue_free()
 
-# Signal handlers
+
 func _on_detection_area_body_entered(body: Node2D):
 	if body.has_method("character"):
 		player_in_area = true
@@ -311,7 +334,7 @@ func _on_detection_area_body_exited(body: Node2D):
 
 func _on_hitbox_body_entered(body):
 	var bullet_type = body.get("key")
-	var hit_position = body.global_position  # fallback
+	var hit_position = body.global_position 
 	if body.has_method("get_collision_point"):
 		hit_position = body.collision_point
 
