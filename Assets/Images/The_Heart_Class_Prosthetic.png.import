@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bmm8xmqdicqgb"
-path="res://.godot/imported/Experiment_Guns.png-2f667b3b664ca8bb3f03796dfdcd7239.ctex"
+uid="uid://b03qixx8rufw3"
+path="res://.godot/imported/The_Heart_Class_Prosthetic.png-813cdcf20fa48baa4281f48c8c4de335.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/guns/Gun_fires/Experiment_Guns.png"
-dest_files=["res://.godot/imported/Experiment_Guns.png-2f667b3b664ca8bb3f03796dfdcd7239.ctex"]
+source_file="res://Assets/Images/The_Heart_Class_Prosthetic.png"
+dest_files=["res://.godot/imported/The_Heart_Class_Prosthetic.png-813cdcf20fa48baa4281f48c8c4de335.ctex"]
 
 [params]
 

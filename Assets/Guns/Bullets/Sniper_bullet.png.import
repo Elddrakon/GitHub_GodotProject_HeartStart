@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://nrjxx0ki8a0p"
-path="res://.godot/imported/Sniper_bullet.png-10133d1ead42ed822bc8546e1915188b.ctex"
+path="res://.godot/imported/Sniper_bullet.png-bc007bfa19eb32707f11e4883f9fe54f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Guns/Bullets/Sniper_bullet.png"
-dest_files=["res://.godot/imported/Sniper_bullet.png-10133d1ead42ed822bc8546e1915188b.ctex"]
+source_file="res://Assets/guns/Bullets/Sniper_bullet.png"
+dest_files=["res://.godot/imported/Sniper_bullet.png-bc007bfa19eb32707f11e4883f9fe54f.ctex"]
 
 [params]
 

@@ -1,7 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://buvlpwq81e6qc"]
+[gd_scene load_steps=8 format=3 uid="uid://buvlpwq81e6qc"]
 
-[ext_resource type="Script" uid="uid://cw8npkb0nhskn" path="res://Scenes/heart_selection_menu.gd" id="1_0luu1"]
+[ext_resource type="Script" uid="uid://cw8npkb0nhskn" path="res://Scripts/heart_selection_menu.gd" id="1_0luu1"]
 [ext_resource type="Texture2D" uid="uid://bedlu6xp0pefu" path="res://icon.svg" id="2_idik5"]
+[ext_resource type="Texture2D" uid="uid://b03qixx8rufw3" path="res://Assets/Images/The_Heart_Class_Prosthetic.png" id="3_r66ui"]
+[ext_resource type="Texture2D" uid="uid://d20qursnhp6vj" path="res://Assets/Images/The_Heart_Class_Normal.png" id="4_or5h0"]
+[ext_resource type="Texture2D" uid="uid://cocowfj5jrko2" path="res://Assets/Images/The_Heart_Class_Lobotomised.png" id="5_hwe5h"]
+[ext_resource type="Texture2D" uid="uid://bdja7nmt5otgc" path="res://Assets/Images/Heart_Selection_background1.png" id="6_hwe5h"]
+[ext_resource type="Texture2D" uid="uid://q6f8etgr8upm" path="res://Assets/Images/Heart_Selection.png" id="7_l3go3"]
 
 [node name="SelectionMenu" type="Control"]
 layout_mode = 3
@@ -11,17 +16,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_0luu1")
+amount_of_hearts = null
 hearts = null
 
-[node name="Background" type="TextureRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
 [node name="Arrow_button_left" type="TextureButton" parent="."]
+top_level = true
 layout_mode = 0
 offset_left = 25.0
 offset_top = 199.0
@@ -30,6 +29,7 @@ offset_bottom = 366.0
 texture_pressed = ExtResource("2_idik5")
 
 [node name="Arrow_button_right" type="TextureButton" parent="."]
+top_level = true
 layout_mode = 0
 offset_left = 965.0
 offset_top = 214.0
@@ -57,19 +57,57 @@ position = Vector2(1440, 402)
 [node name="Hearts" type="Node" parent="."]
 
 [node name="Prosthetic_Heart" type="TextureRect" parent="Hearts"]
-offset_left = 97.0
-offset_top = 382.0
-offset_right = 137.0
-offset_bottom = 422.0
+z_index = 3
+offset_left = 151.0
+offset_top = 313.0
+offset_right = 268.0
+offset_bottom = 479.0
+texture = ExtResource("3_r66ui")
+expand_mode = 1
 
 [node name="Normal_Heart" type="TextureRect" parent="Hearts"]
-offset_left = 531.0
-offset_top = 258.0
-offset_right = 571.0
-offset_bottom = 298.0
+z_index = 3
+offset_left = 522.0
+offset_top = 202.0
+offset_right = 639.0
+offset_bottom = 368.0
+scale = Vector2(1.1, 1.1)
+texture = ExtResource("4_or5h0")
+expand_mode = 1
 
 [node name="Lobotomy_Heart" type="TextureRect" parent="Hearts"]
-offset_left = 934.0
-offset_top = 367.0
-offset_right = 974.0
-offset_bottom = 407.0
+z_index = 3
+custom_minimum_size = Vector2(1, 1)
+offset_left = 893.0
+offset_top = 302.0
+offset_right = 1010.0
+offset_bottom = 468.0
+texture = ExtResource("5_hwe5h")
+expand_mode = 1
+
+[node name="Background" type="TextureRect" parent="."]
+visibility_layer = 2
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 2.0
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_hwe5h")
+expand_mode = 1
+
+[node name="BackgroundOfBackGround" type="TextureRect" parent="Background"]
+z_index = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -3.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_l3go3")
+expand_mode = 1

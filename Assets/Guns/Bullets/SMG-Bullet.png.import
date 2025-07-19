@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c3kcg1t2bwdys"
-path="res://.godot/imported/SMG-Bullet.png-964b50e4440ab912885e3e3bc539f0fb.ctex"
+path="res://.godot/imported/SMG-Bullet.png-76ac111b29fd0b758b5d892b9610c3a0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Guns/Bullets/SMG-Bullet.png"
-dest_files=["res://.godot/imported/SMG-Bullet.png-964b50e4440ab912885e3e3bc539f0fb.ctex"]
+source_file="res://Assets/guns/Bullets/SMG-Bullet.png"
+dest_files=["res://.godot/imported/SMG-Bullet.png-76ac111b29fd0b758b5d892b9610c3a0.ctex"]
 
 [params]
 
